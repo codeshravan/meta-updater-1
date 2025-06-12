@@ -6,6 +6,8 @@ do_image_ota[cleandirs] = "${OTA_SYSROOT}"
 do_image_ota[depends] = "${@'grub:do_populate_sysroot' if d.getVar('OSTREE_BOOTLOADER') == 'grub' else ''} \
                          ${@'virtual/bootloader:do_deploy' if d.getVar('OSTREE_BOOTLOADER') == 'u-boot' else ''}"
 IMAGE_CMD:ota () {
+        mkdir -p ${OTA_SYSROOT}/ostree/repo
+        ostree --repo=${OTA_SYSROOT}/ostree/repo init --mode=archive-z2
 	ostree admin --sysroot=${OTA_SYSROOT} init-fs --modern ${OTA_SYSROOT}
 	ostree admin --sysroot=${OTA_SYSROOT} os-init ${OSTREE_OSNAME}
 
