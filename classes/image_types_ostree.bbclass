@@ -135,7 +135,7 @@ do_image_ostreecommit[depends] += "ostree-native:do_populate_sysroot"
 do_image_ostreecommit[lockfiles] += "${OSTREE_REPO}/ostree.lock"
 IMAGE_CMD:ostreecommit () {
     if ! ostree --repo=${OSTREE_REPO} refs 2>&1 > /dev/null; then
-        ostree --repo=${OSTREE_REPO} init --mode=archive-z2
+        ostree --repo=${OSTREE_REPO} init --mode=bare
     fi
 
     # Apply generic configurations to the main ostree repository; they are
